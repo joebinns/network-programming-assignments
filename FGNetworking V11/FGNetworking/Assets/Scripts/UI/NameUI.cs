@@ -13,6 +13,6 @@ public class NameUI : MonoBehaviour
 
 	private void UpdateUI(FixedString128Bytes previousValue, FixedString128Bytes newValue)
 	{
-		_textMesh.text = newValue;
+		_textMesh.text = newValue.ToString();
 	}
 }
