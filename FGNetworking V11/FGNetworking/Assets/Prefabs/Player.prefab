@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5963278380796644495}
   - component: {fileID: 7262709456020717196}
   - component: {fileID: 1795185787946825641}
+  - component: {fileID: 2967901729741208329}
   - component: {fileID: 117897365439605971}
   m_Layer: 0
   m_Name: Player
@@ -218,6 +219,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth:
     m_InternalValue: 100
+--- !u!114 &2967901729741208329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3076901462484674528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d36e51c1bead254aa88da41bfcb1150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentName:
+    m_InternalValue: 
 --- !u!70 &117897365439605971
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -624,6 +639,7 @@ GameObject:
   - component: {fileID: 1596214526610890641}
   - component: {fileID: 4612899437105917669}
   - component: {fileID: 5598401889855246506}
+  - component: {fileID: 5453519522731662666}
   m_Layer: 0
   m_Name: NameText
   m_TagString: Untagged
@@ -722,6 +738,20 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!114 &5453519522731662666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7341387841397274541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6218f298c51b5b499294c82dc261f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textMesh: {fileID: 5598401889855246506}
+  _name: {fileID: 2967901729741208329}
 --- !u!1 &7386821703780188367
 GameObject:
   m_ObjectHideFlags: 0
