@@ -1,4 +1,3 @@
-using Unity.Collections;
 using UnityEngine;
 
 public class NameUI : MonoBehaviour
@@ -8,11 +7,6 @@ public class NameUI : MonoBehaviour
 
 	void Start()
 	{
-		_name.CurrentName.OnValueChanged += UpdateUI;
-	}
-
-	private void UpdateUI(FixedString128Bytes previousValue, FixedString128Bytes newValue)
-	{
-		_textMesh.text = newValue.ToString();
+		_textMesh.text = _name.CurrentName.Value.ToString();
 	}
 }

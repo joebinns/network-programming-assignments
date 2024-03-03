@@ -7,7 +7,7 @@ public class Name : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
+        //if (!IsServer) return;
 
         CurrentName.Value = "networked_name"; // TODO: Change this to the name as stored in the user data in saved client information manager
     }
