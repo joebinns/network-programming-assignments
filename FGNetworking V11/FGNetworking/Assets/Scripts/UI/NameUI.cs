@@ -7,6 +7,6 @@ public class NameUI : MonoBehaviour
 
 	void Start()
 	{
-		_textMesh.text = _name.CurrentName.Value.ToString();
+		_textMesh.text = _name.UserName.Value.ToString();
 	}
 }
