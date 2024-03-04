@@ -9,8 +9,7 @@ public class Name : NetworkBehaviour
 	{
 		if (!IsServer) return;
 
-		var allClients = SavedClientInformationManager.GetAllClient();
-		var userData = allClients[allClients.Count - 1].userData;
+		var userData = SavedClientInformationManager.GetUserData(OwnerClientId);
 		UserName.Value = userData.userName;
 	}
 }
