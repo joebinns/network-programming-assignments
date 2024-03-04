@@ -3,17 +3,14 @@ using Unity.Netcode;
 
 public class Name : NetworkBehaviour
 {
-    public NetworkVariable<FixedString128Bytes> UserName = new NetworkVariable<FixedString128Bytes>();
+	public NetworkVariable<FixedString128Bytes> UserName = new NetworkVariable<FixedString128Bytes>();
 
-    public override void OnNetworkSpawn()
-    {
-        //if (!IsServer) return;
+	public override void OnNetworkSpawn()
+	{
+		if (!IsServer) return;
 
-        var networkId = NetworkObjectId;
-		var userData = SavedClientInformationManager.GetUserData(networkId);
-
-        if (userData == null) return;
-
-        UserName.Value = userData.userName; // TODO: Change this to the name as stored in the user data in saved client information manager
-    }
+		var allClients = SavedClientInformationManager.GetAllClient();
+		var userData = allClients[allClients.Count - 1].userData;
+		UserName.Value = userData.userName;
+	}
 }
