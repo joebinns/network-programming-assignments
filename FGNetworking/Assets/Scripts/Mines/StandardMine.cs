@@ -13,15 +13,19 @@ public class StandardMine : NetworkBehaviour
 			if (!health) return;
 			health.LoseHealth(25);
 
-			int xPosition = Random.Range(-4, 4);
-			int yPosition = Random.Range(-2, 2);
+			var newPosition = new Vector3(
+				Random.Range(-4f, 4f),
+				Random.Range(-2f, 2f),
+				0f);
 
-			GameObject newMine = Instantiate(minePrefab, new Vector3(xPosition, yPosition, 0), Quaternion.identity);
-			NetworkObject no = newMine.GetComponent<NetworkObject>();
-			no.Spawn();
-
-			NetworkObject networkObject = gameObject.GetComponent<NetworkObject>();
-			networkObject.Despawn();
+			transform.position = newPosition;
+			SetPositionClientRpc(newPosition);
 		}
+	}
+
+	[ClientRpc]
+	private void SetPositionClientRpc(Vector3 newPosition)
+	{
+		transform.position = newPosition;
 	}
 }

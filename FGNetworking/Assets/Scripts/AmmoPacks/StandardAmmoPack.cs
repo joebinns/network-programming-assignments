@@ -16,16 +16,18 @@ public class StandardAmmoPack : NetworkBehaviour
 
 		ammo.GainAmmo(AMMO);
 
-		var spawnPosition = new Vector3(
+		var newPosition = new Vector3(
 			Random.Range(-4f, 4f),
 			Random.Range(-2f, 2f),
 			0f);
 
-		var newAmmoPack = Instantiate(ammoPackPrefab, spawnPosition, Quaternion.identity);
-		var newNetworkObject = newAmmoPack.GetComponent<NetworkObject>();
-		newNetworkObject.Spawn();
+		transform.position = newPosition;
+		SetPositionClientRpc(newPosition);
+	}
 
-		var networkObject = gameObject.GetComponent<NetworkObject>();
-		networkObject.Despawn();
+	[ClientRpc]
+	private void SetPositionClientRpc(Vector3 newPosition)
+	{
+		transform.position = newPosition;
 	}
 }
