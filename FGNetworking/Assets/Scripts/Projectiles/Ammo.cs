@@ -5,6 +5,8 @@ public class Ammo : NetworkBehaviour
 {
 	public NetworkVariable<int> currentAmmo = new NetworkVariable<int>();
 
+	[SerializeField] private PlayerController playerController;
+
 	public const int MAX_AMMO = 10;
 
 	public override void OnNetworkSpawn()
@@ -12,6 +14,7 @@ public class Ammo : NetworkBehaviour
 		if (!IsServer) return;
 
 		currentAmmo.Value = MAX_AMMO;
+		playerController.onRespawnEvent += ResetAmmo;
 	}
 
 	public void GainAmmo(int ammo)
@@ -26,4 +29,5 @@ public class Ammo : NetworkBehaviour
 		currentAmmo.Value = Mathf.Max(currentAmmo.Value, 0);
 	}
 
+	public void ResetAmmo() => currentAmmo.Value = MAX_AMMO;
 }

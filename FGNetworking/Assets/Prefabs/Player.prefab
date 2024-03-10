@@ -500,6 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentAmmo:
     m_InternalValue: 5
+  playerController: {fileID: 5210888314493061672}
 --- !u!114 &7847919571605056479
 MonoBehaviour:
   m_ObjectHideFlags: 0

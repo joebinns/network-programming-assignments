@@ -121,7 +121,7 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 	{
 		transform.position = Vector3.zero;
 		transform.rotation = Quaternion.identity;
-		//onRespawnEvent?.Invoke(); // Reset health, reset ammo
+		onRespawnEvent?.Invoke();
 	}
 
 	[ServerRpc]

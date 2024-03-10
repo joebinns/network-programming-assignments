@@ -14,6 +14,7 @@ public class Health : NetworkBehaviour
 		if (!IsServer) return;
 
 		currentHealth.Value = MAX_HEALTH;
+		playerController.onRespawnEvent += ResetHealth;
 	}
 
 	public void GainHealth(int health)
@@ -33,8 +34,5 @@ public class Health : NetworkBehaviour
 		}
 	}
 
-	public void Reset()
-	{
-		currentHealth.Value = MAX_HEALTH;
-	}
+	public void ResetHealth() => currentHealth.Value = MAX_HEALTH;
 }
