@@ -20,7 +20,6 @@ public class FiringAction : NetworkBehaviour
 		if (ammo.currentAmmo.Value <= 0) return;
 
 		ShootLocalBullet();
-		ammo.LoseAmmo(1);
 	}
 
 	[ServerRpc]
@@ -30,6 +29,7 @@ public class FiringAction : NetworkBehaviour
 		Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
 
 		ShootBulletClientRpc();
+		ammo.LoseAmmo(1);
 	}
 
 	[ClientRpc]
