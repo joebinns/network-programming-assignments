@@ -140,6 +140,6 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 
 	private void Despawn()
 	{
-		gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 }

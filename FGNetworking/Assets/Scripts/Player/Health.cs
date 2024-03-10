@@ -11,6 +11,11 @@ public class Health : NetworkBehaviour
 
 	public override void OnNetworkSpawn()
 	{
+		if (IsOwner)
+		{
+			currentHealth.OnValueChanged += TryKill;
+		}
+
 		if (!IsServer) return;
 
 		currentHealth.Value = MAX_HEALTH;
@@ -27,8 +32,11 @@ public class Health : NetworkBehaviour
 	{
 		currentHealth.Value -= Mathf.Abs(health);
 		currentHealth.Value = Mathf.Max(currentHealth.Value, 0);
+	}
 
-		if (currentHealth.Value <= 0)
+	private void TryKill(int previousValue, int newValue)
+	{
+		if (newValue <= 0)
 		{
 			playerController.Kill();
 		}
