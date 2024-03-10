@@ -15,6 +15,11 @@ public class ClientSingelton : Singleton<ClientSingelton>
     public async Task StartClientAsync(String joinCode){
         await clientManager.StartClientAsync(joinCode);
     }
+
+    public void StartMatchMaking(){
+         clientManager.StartMatchMaking();
+    }
+
     
 
 }

@@ -17,21 +17,18 @@ public class NetworkTransformClientAuth : NetworkTransform
         base.OnNetworkSpawn();
         CanCommitToTransform = IsOwner;
     }
+
     protected override void Update()
     {
-
         base.Update();
-
 
         if(!IsOwner) return;
         if(IsHost || IsServer) return;
-        
 
         CanCommitToTransform = IsOwner;
         if(NetworkManager.IsConnectedClient){
             TryCommitTransformToServer(transform, NetworkManager.LocalTime.Time);
         }
-
     }
 
 }

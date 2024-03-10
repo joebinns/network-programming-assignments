@@ -11,9 +11,16 @@ public class SavingUserNameUI : MonoBehaviour
 
     void Awake()
     {
+
+        bool isDedicated = (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null);
+        if(isDedicated){
+        GoToScene();
+        }else{
         String userName = PlayerPrefs.GetString("userName");
         if (userName.Trim().Equals(String.Empty)) return;
         GoToScene();
+        }
+
     }
 
     public void SaveButtonClicked()

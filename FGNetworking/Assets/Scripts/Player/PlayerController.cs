@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 
     public override void OnNetworkSpawn()
     {
-            if(!IsOwner) return;
+        if (!IsOwner) return;
 
         if (_playerInput == null)
         {
@@ -65,13 +65,13 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 
     private void FixedUpdate()
     {
-        if(!IsOwner) return;
+        if (!IsOwner) return;
         _rb.velocity = transform.up * _moveInput.y * movementSpeed;
         _rb.MoveRotation(_rb.rotation + _moveInput.x * -shipRotationSpeed * Time.fixedDeltaTime);
     }
     private void LateUpdate()
     {
-        if(!IsOwner) return;
+        if (!IsOwner) return;
         Vector2 screenToWorldPosition = Camera.main.ScreenToWorldPoint(_cursorLocation);
         Vector2 targetDirection = new Vector2(screenToWorldPosition.x - turretPivotTransform.position.x, screenToWorldPosition.y - turretPivotTransform.position.y).normalized;
         Vector2 currentDirection = Vector2.Lerp(turretPivotTransform.up, targetDirection, Time.deltaTime * turretRotationSpeed);

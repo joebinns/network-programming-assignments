@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class NetworkServer
+public class NetworkServer : IDisposable
 {
 
     NetworkManager networkManager;
@@ -34,4 +34,16 @@ public class NetworkServer
         response.CreatePlayerObject = true; // Theo
 
     }
+
+    public void Dispose()
+    {
+        if(networkManager != null){
+        networkManager.ConnectionApprovalCallback -= ConnectionApproval;
+        NetworkManager.Singleton.OnClientDisconnectCallback -= clientDisconnect; 
+        if(networkManager.IsListening) networkManager.Shutdown();
+        } 
+    }
+
+
+
 }

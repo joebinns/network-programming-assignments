@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,13 +7,14 @@ public class ApplicationController : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        bool isGraphicCardDoesntExist = SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null;
+        bool isGraphicCardDoesntExist = (SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null);
         StartInMode(isGraphicCardDoesntExist);
     }
 
     async void StartInMode(bool isGraphicsDoesntExist){
         if(isGraphicsDoesntExist){
-            // This is a dedicated Server 
+            await ServerSingelton.GetInstance().InitServerAsync();
+            await ServerSingelton.GetInstance().StartServerAsync();
         }else{
             await HostSingelton.GetInstance().InitSeverAsync();
             await ClientSingelton.GetInstance().InitClientAsync();
@@ -25,6 +24,5 @@ public class ApplicationController : MonoBehaviour
             }
                     // If everything init then go to main menu 
         }
-
     }
 }

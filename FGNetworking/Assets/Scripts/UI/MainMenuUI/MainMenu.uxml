@@ -11,6 +11,8 @@
         <ui:VisualElement name="Panel3" class="defaultPanel">
             <ui:Button text="Lobbies" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LobbiesButton" class="defaultButtonCLass" />
         </ui:VisualElement>
-        <ui:VisualElement name="Panel4" />
+        <ui:VisualElement name="Panel4" class="defaultPanel">
+            <ui:Button text="Matchmaking" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SearchGameButton" class="defaultButtonCLass" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

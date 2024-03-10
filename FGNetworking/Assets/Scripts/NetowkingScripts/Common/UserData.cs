@@ -7,22 +7,32 @@ using UnityEngine;
 public class UserData
 {
     public string userName;
-    public string authId;
+    public string userAuthId;
     public ulong networkID;
 
-    //dfsdgdfg
-    //gfdgdfg
-    //gfdgdfg
+    public GameData userGamePreferences;
 }
+
+
 
 public static class UserDataWrapper
 {
+
+    private static UserData userData;
+
+
+    public static UserData GetUserData()
+    {
+        return userData;
+    }
+
     public static byte[] PayLoadInBytes()
     {
-        UserData userData = new UserData
+         userData = new UserData
         {
             userName = PlayerPrefs.GetString("userName", "John doe"),
-            authId = AuthenticationService.Instance.PlayerId
+            userAuthId = AuthenticationService.Instance.PlayerId, 
+            userGamePreferences = new GameData()
         };
         string payload = JsonUtility.ToJson(userData);
         byte[] payloadBytes = System.Text.Encoding.UTF8.GetBytes(payload);

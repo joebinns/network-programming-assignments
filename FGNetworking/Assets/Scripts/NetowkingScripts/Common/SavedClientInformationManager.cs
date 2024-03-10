@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public struct SavedClientInformation
 {
     public ulong networkID;
-    public string authID;
+    public string userAuthId;
     public UserData userData;
 }
 
@@ -21,7 +21,7 @@ public static class SavedClientInformationManager
         SavedClientInformation savedClientInfo = new()
         {
             networkID = userData.networkID,
-            authID = userData.authId,
+            userAuthId = userData.userAuthId,
             userData = userData
         };
         savedClientInformation.Add(savedClientInfo);
@@ -41,11 +41,11 @@ public static class SavedClientInformationManager
         return null;
     }
 
-    public static UserData GetUserData(string authID)
+    public static UserData GetUserData(string userAuthId)
     {
         foreach (var client in savedClientInformation)
         {
-            if (authID == client.authID)
+            if (userAuthId == client.userAuthId)
             {
                 return client.userData;
             }
