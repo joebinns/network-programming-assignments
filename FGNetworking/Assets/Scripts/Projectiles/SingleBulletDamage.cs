@@ -10,6 +10,6 @@ void OnTriggerEnter2D(Collider2D other)
 {
     Health health = other.transform.GetComponent<Health>();
     if(health == null) return;
-    health.TakeDamage(damage);
+    health.LoseHealth(damage);
 }
 }

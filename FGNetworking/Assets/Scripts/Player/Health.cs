@@ -5,9 +5,7 @@ public class Health : NetworkBehaviour
 {
 	public NetworkVariable<int> currentHealth = new NetworkVariable<int>();
 
-	private const int MIN_HEALTH = 0;
-	private const int MAX_HEALTH = 100;
-
+	public const int MAX_HEALTH = 100;
 
 	public override void OnNetworkSpawn()
 	{
@@ -22,10 +20,10 @@ public class Health : NetworkBehaviour
 		currentHealth.Value = Mathf.Min(currentHealth.Value, MAX_HEALTH);
 	}
 
-	public void TakeDamage(int damage)
+	public void LoseHealth(int health)
 	{
-		currentHealth.Value -= Mathf.Abs(damage);
-		currentHealth.Value = Mathf.Max(currentHealth.Value, MIN_HEALTH);
+		currentHealth.Value -= Mathf.Abs(health);
+		currentHealth.Value = Mathf.Max(currentHealth.Value, 0);
 	}
 
 }

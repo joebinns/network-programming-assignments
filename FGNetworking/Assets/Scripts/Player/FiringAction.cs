@@ -7,6 +7,7 @@ public class FiringAction : NetworkBehaviour
 	[SerializeField] GameObject clientSingleBulletPrefab;
 	[SerializeField] GameObject serverSingleBulletPrefab;
 	[SerializeField] Transform bulletSpawnPoint;
+	[SerializeField] Ammo ammo;
 
 	public override void OnNetworkSpawn()
 	{
@@ -16,8 +17,10 @@ public class FiringAction : NetworkBehaviour
 	private void Fire(bool isShooting)
 	{
 		if (!isShooting) return;
+		if (ammo.currentAmmo.Value <= 0) return;
 
 		ShootLocalBullet();
+		ammo.LoseAmmo(1);
 	}
 
 	[ServerRpc]
@@ -25,6 +28,7 @@ public class FiringAction : NetworkBehaviour
 	{
 		GameObject bullet = Instantiate(serverSingleBulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 		Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
+
 		ShootBulletClientRpc();
 	}
 
@@ -32,6 +36,7 @@ public class FiringAction : NetworkBehaviour
 	private void ShootBulletClientRpc()
 	{
 		if (IsOwner) return;
+
 		GameObject bullet = Instantiate(clientSingleBulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
 		Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.GetComponent<Collider2D>());
 

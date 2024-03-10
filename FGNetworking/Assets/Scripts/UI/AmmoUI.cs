@@ -2,21 +2,21 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthUI : MonoBehaviour
+public class AmmoUI : MonoBehaviour
 {
 	[SerializeField] Image loadingBarImage;
 	[SerializeField] Transform backdrop;
-	[SerializeField] Health health;
-	[SerializeField, Range(-1f, 0f)] private float _verticalOffset = -0.6f;
+	[SerializeField] Ammo ammo;
+	[SerializeField, Range(-1f, 0f)] private float _verticalOffset = -0.8f;
 
 	void Start()
 	{
-		health.currentHealth.OnValueChanged += UpdateUI;
+		ammo.currentAmmo.OnValueChanged += UpdateUI;
 	}
 
 	private void UpdateUI(int previousValue, int newValue)
 	{
-		loadingBarImage.fillAmount = (float)newValue / Health.MAX_HEALTH;
+		loadingBarImage.fillAmount = (float)newValue / Ammo.MAX_AMMO;
 	}
 
 	private void Update()
