@@ -5,6 +5,8 @@ public class Health : NetworkBehaviour
 {
 	public NetworkVariable<int> currentHealth = new NetworkVariable<int>();
 
+	[SerializeField] private PlayerController playerController;
+
 	public const int MAX_HEALTH = 100;
 
 	public override void OnNetworkSpawn()
@@ -27,31 +29,12 @@ public class Health : NetworkBehaviour
 
 		if (currentHealth.Value <= 0)
 		{
-			DespawnPlayerLocal();
+			playerController.Kill();
 		}
 	}
 
-	private void DespawnPlayerLocal()
+	public void Reset()
 	{
-		gameObject.SetActive(false);
-
-		DespawnPlayerServerRpc();
-	}
-
-	[ServerRpc]
-	private void DespawnPlayerServerRpc()
-	{
-		gameObject.SetActive(false);
-
-		DespawnPlayerClientRpc();
-	}
-
-	[ClientRpc]
-	private void DespawnPlayerClientRpc()
-	{
-		if (IsOwner) return;
-
-		gameObject.SetActive(false);
-
+		currentHealth.Value = MAX_HEALTH;
 	}
 }

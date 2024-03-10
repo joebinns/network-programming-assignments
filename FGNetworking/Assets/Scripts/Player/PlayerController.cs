@@ -7,6 +7,8 @@ using static PlayerInput;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : NetworkBehaviour, IPlayerActions
 {
+	public NetworkVariable<int> currentRespawns = new NetworkVariable<int>();
+
 	private PlayerInput _playerInput;
 	private Vector2 _moveInput = new();
 	private Vector2 _cursorLocation;
@@ -18,15 +20,22 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 
 
 	public UnityAction<bool> onFireEvent;
+	public UnityAction onRespawnEvent;
 
 	[Header("Settings")]
 	[SerializeField] private float movementSpeed = 5f;
 	[SerializeField] private float shipRotationSpeed = 100f;
 	[SerializeField] private float turretRotationSpeed = 4f;
 
+	private const int MAX_RESPAWNS = 3;
 
 	public override void OnNetworkSpawn()
 	{
+		if (IsServer)
+		{
+			currentRespawns.Value = 0;
+		}
+
 		if (!IsOwner) return;
 
 		if (_playerInput == null)
@@ -41,10 +50,6 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 		turretPivotTransform = transform.Find("PivotTurret");
 		if (turretPivotTransform == null) Debug.LogError("PivotTurret is not found", gameObject);
 	}
-
-
-
-
 
 	public void OnFire(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
@@ -81,5 +86,60 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 	public void OnAim(InputAction.CallbackContext context)
 	{
 		_cursorLocation = context.ReadValue<Vector2>();
+	}
+
+	public void Kill()
+	{
+		if (currentRespawns.Value < MAX_RESPAWNS)
+		{
+			RespawnServerRpc();
+		}
+		else
+		{
+			DespawnServerRpc();
+		}
+	}
+
+	[ServerRpc]
+	private void RespawnServerRpc()
+	{
+		Respawn();
+		currentRespawns.Value++;
+
+		RespawnClientRpc();
+	}
+
+	[ClientRpc]
+	private void RespawnClientRpc()
+	{
+		Respawn();
+
+		currentRespawns.Value++;
+	}
+
+	private void Respawn()
+	{
+		transform.position = Vector3.zero;
+		transform.rotation = Quaternion.identity;
+		//onRespawnEvent?.Invoke(); // Reset health, reset ammo
+	}
+
+	[ServerRpc]
+	private void DespawnServerRpc()
+	{
+		Despawn();
+
+		DespawnClientRpc();
+	}
+
+	[ClientRpc]
+	private void DespawnClientRpc()
+	{
+		Despawn();
+	}
+
+	private void Despawn()
+	{
+		gameObject.SetActive(false);
 	}
 }

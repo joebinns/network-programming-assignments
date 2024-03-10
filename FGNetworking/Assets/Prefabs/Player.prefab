@@ -339,6 +339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c560ce95e577a64da5e19cc6908a298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentRespawns:
+    m_InternalValue: 0
   movementSpeed: 5
   shipRotationSpeed: 100
   turretRotationSpeed: 4
@@ -483,6 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth:
     m_InternalValue: 100
+  playerController: {fileID: 5210888314493061672}
 --- !u!114 &8367058769608445500
 MonoBehaviour:
   m_ObjectHideFlags: 0
