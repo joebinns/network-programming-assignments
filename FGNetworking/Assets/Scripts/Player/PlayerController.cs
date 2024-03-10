@@ -113,8 +113,6 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 	private void RespawnClientRpc()
 	{
 		Respawn();
-
-		currentRespawns.Value++;
 	}
 
 	private void Respawn()
@@ -126,14 +124,6 @@ public class PlayerController : NetworkBehaviour, IPlayerActions
 
 	[ServerRpc]
 	private void DespawnServerRpc()
-	{
-		Despawn();
-
-		DespawnClientRpc();
-	}
-
-	[ClientRpc]
-	private void DespawnClientRpc()
 	{
 		Despawn();
 	}

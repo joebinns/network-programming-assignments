@@ -31,7 +31,6 @@ public class Health : NetworkBehaviour
 	public void LoseHealth(int health)
 	{
 		currentHealth.Value -= Mathf.Abs(health);
-		currentHealth.Value = Mathf.Max(currentHealth.Value, 0);
 	}
 
 	private void TryKill(int previousValue, int newValue)

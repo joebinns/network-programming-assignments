@@ -26,7 +26,6 @@ public class Ammo : NetworkBehaviour
 	public void LoseAmmo(int ammo)
 	{
 		currentAmmo.Value -= Mathf.Abs(ammo);
-		currentAmmo.Value = Mathf.Max(currentAmmo.Value, 0);
 	}
 
 	public void ResetAmmo() => currentAmmo.Value = MAX_AMMO;
